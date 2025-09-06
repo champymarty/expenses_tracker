@@ -1,0 +1,39 @@
+<form [formGroup]="combineForm" (ngSubmit)="onConfirm()">
+  <mat-form-field>
+    <mat-label>Surviving Category Family</mat-label>
+    <mat-select formControlName="survivingCategoryFamilyControl" required>
+      @for (categoryFamily of categoryFamilies; track categoryFamily.id) {
+      <mat-option [value]="categoryFamily"> {{ categoryFamily.name }} </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Combined Category Family</mat-label>
+    <mat-select formControlName="deletedCategoryFamilyControl" required>
+      @for (categoryFamily of categoryFamilies; track categoryFamily.id) {
+      <mat-option [value]="categoryFamily"> {{ categoryFamily.name }} </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Name: </mat-label>
+    <input type="text" matInput formControlName="nameFormControl" />
+  </mat-form-field>
+
+  @if (survivingCategoryFamilyControl.hasError('required')) {
+  <mat-error> Surviving Category Family is required. </mat-error> } @if
+  (deletedCategoryFamily.hasError('required')) {
+  <mat-error> Combined Category Family is required. </mat-error> } @if
+  (nameFormControl.hasError('required')) {
+  <mat-error> Name is required. </mat-error>
+  } @if (errorResponseCombine) {
+  <mat-error>{{errorResponseCombine}}</mat-error> }
+
+  <mat-dialog-actions>
+    <button mat-button type="button" (click)="onCancel()">Cancel</button>
+    <button mat-button color="primary" type="submit" [disabled]="combineForm.invalid">
+      Combine
+    </button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,16 @@
+.category-board-container {
+  padding: 24px;
+}
+
+.category-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.category-card {
+  flex: 1 1 auto;
+  max-width: 320px;
+  min-width: 100px;
+  box-sizing: border-box;
+}

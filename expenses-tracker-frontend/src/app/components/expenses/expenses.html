@@ -1,0 +1,9 @@
+<app-date-picker (onDatesSelected)="processOnDatesSelected($event)"></app-date-picker>
+
+<ag-grid-angular
+  [rowData]="rowData"
+  [columnDefs]="colDefs"
+  [modules]="AG_GRID_MODULES"
+  [gridOptions]="gridOptions"
+  (gridReady)="onGridReady($event)"
+/>
