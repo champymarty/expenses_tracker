@@ -17,7 +17,7 @@ class BncFileExtractor(FileExtractor):
         "Date", "Card Number", "Description", "Category", "Debit", "Credit"
     ]
 
-    def extract(self) -> ExpensesUpload:
+    async def extract(self) -> ExpensesUpload:
         """
         Extracts the content of the BNC Excel file.
         """

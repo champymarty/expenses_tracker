@@ -5,3 +5,4 @@ uvicorn
 pandas
 openpyxl
 python-multipart
+beautifulsoup4

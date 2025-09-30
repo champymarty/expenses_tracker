@@ -43,7 +43,7 @@ class RogerFileExtractor(FileExtractor):
         super().__init__(file, source)
         self.LOGGER = logging.getLogger(f'{__name__}.{self.__class__.__name__}')
 
-    def extract(self) -> ExpensesUpload:
+    async def extract(self) -> ExpensesUpload:
         """
         Extracts the content of the BNC Excel file.
         """

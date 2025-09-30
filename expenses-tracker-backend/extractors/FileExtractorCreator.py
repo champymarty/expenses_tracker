@@ -4,6 +4,7 @@ from extractors.BncFileExtractor import BncFileExtractor
 from extractors.RogerFileExtractor import RogerFileExtractor
 from extractors.FileExtractor import FileExtractor
 from extractors.NotSupportedFile import NotSupportedFile
+from extractors.html.HtmlRogerExtractor import HtmlRogerExtractor
 
 class FileExtractorCreator:
 
@@ -16,5 +17,8 @@ class FileExtractorCreator:
                 return BncFileExtractor(file=file, source=source)
             elif source.type.lower() == "ROGER".lower():
                 return RogerFileExtractor(file=file, source=source)
+        elif file.filename.endswith(".html"):
+            if source.type.lower() == "ROGER".lower():
+                return HtmlRogerExtractor(file=file, source=source)
         
         raise NotSupportedFile(filename=file.filename, message=f"Invalid file type. {file.filename} is not supported.")

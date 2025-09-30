@@ -125,7 +125,7 @@ async def upload_expenses(
         for file in files:
             LOGGER.info(f"Processing file: {file.filename} for source: {source.name}")
             extractor: FileExtractor = FileExtractorCreator.create_extractor(file, source)
-            new_expensesUpload = extractor.extract()
+            new_expensesUpload = await extractor.extract()
             expensesUpload.created_expenses += new_expensesUpload.created_expenses
             expensesUpload.existing_expenses += new_expensesUpload.existing_expenses
     except Exception as e:

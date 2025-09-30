@@ -11,6 +11,6 @@ class FileExtractor:
         self.source = source
 
     @abstractmethod
-    def extract(self) -> ExpensesUpload:
+    async def extract(self) -> ExpensesUpload:
         """Extracts the content of the file."""
         pass
