@@ -20,7 +20,7 @@ With card number means that the extractor can determine which card is used as th
 
 1. Create .env file
    1. Add var for UI_URLS. This is the url that are allowed on CORS for backend. Exemple: UI_URLS=http://localhost:8095,http://192.168.18.11:8095,http://172.22.240.1:8095
-2. Create the initial data required at `espenses-tracker-backend/init_data.txt`
+2. Create the initial data required at `expenses-tracker-backend/init_data.txt`
 
    1. One the first line write the name of the users seperated with ;
    2. On the next lines write the Sources as source_name;type;last 4 digit
@@ -32,7 +32,8 @@ With card number means that the extractor can determine which card is used as th
       Wealthsimple Robert;WEALTHSIMPLE;3333
       ```
 
-3. Start the project: `docker compose -f .\docker-compose.prod.yml up`
+3. Start the project: `docker compose -f docker-compose.prod.yml up`
+   if you get and error with buildkit use `DOCKER_BUILDKIT=1 docker compose -f docker-compose.prod.yml up`
 
 ## Restore db on startup
 
