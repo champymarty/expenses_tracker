@@ -6,6 +6,7 @@ services:
       context: ./expenses-tracker-backend
       dockerfile: Dockerfile
     container_name: expenses-tracker-backend
+    restart: always
     environment:
       - ENVIRONMENT=prod
       - LOG_LEVEL=INFO
@@ -23,6 +24,7 @@ services:
       args:
         - ENVIRONMENT=production
     container_name: expenses-tracker-frontend
+    restart: always
     ports:
       - "8095:8080"
     depends_on:
