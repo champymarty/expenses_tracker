@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./expenses-tracker-backend
+      dockerfile: Dockerfile
+    container_name: expenses-tracker-backend
+    environment:
+      - ENVIRONMENT=prod
+      - LOG_LEVEL=INFO
+      - UI_URLS=${UI_URLS}
+    volumes:
+      - expenses-tracker-backend:/app
+    networks:
+      - expenses-network
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+  frontend:
+    build:
+      context: ./expenses-tracker-frontend
+      dockerfile: Dockerfile
+      args:
+        - ENVIRONMENT=production
+    container_name: expenses-tracker-frontend
+    ports:
+      - "8095:8080"
+    depends_on:
+      - backend
+    networks:
+      - expenses-network
+
+networks:
+  expenses-network:
+    driver: bridge
+
+volumes:
+  expenses-tracker-backend:

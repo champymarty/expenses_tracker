@@ -1,0 +1,9 @@
+sqlalchemy
+sqlalchemy-stubs
+fastapi[standard]
+uvicorn
+pandas
+openpyxl
+python-multipart
+beautifulsoup4
+python-dotenv

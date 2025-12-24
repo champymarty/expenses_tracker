@@ -1,0 +1,64 @@
+<div class="date-picker-container">
+  <mat-form-field>
+    <mat-label>Start date (included)</mat-label>
+    <input
+      matInput
+      [matDatepicker]="startDatePicker"
+      placeholder="Month and Year"
+      [formControl]="startDate"
+    />
+    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker
+      #startDatePicker
+      startView="multi-year"
+      (yearSelected)="chosenYearHandler(startDate, $event)"
+      (monthSelected)="chosenMonthHandler(startDate, $event, startDatePicker)"
+      panelClass="example-month-picker"
+    >
+    </mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>End date (included)</mat-label>
+    <input
+      matInput
+      [matDatepicker]="endDatePicker"
+      placeholder="Month and Year"
+      [formControl]="endDate"
+    />
+    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker
+      #endDatePicker
+      startView="multi-year"
+      (yearSelected)="chosenYearHandler(endDate, $event)"
+      (monthSelected)="chosenMonthHandler(endDate, $event, endDatePicker)"
+      panelClass="example-month-picker"
+    >
+    </mat-datepicker>
+  </mat-form-field>
+
+  <div class="date-picker-actions">
+    <button matButton="filled" (click)="onClear()">Clear</button>
+    <button matButton="filled" (click)="onAppyPressed()">Apply</button>
+  </div>
+
+  <div class="date-picker-quick-select">
+    <button matButton="tonal" (click)="onLastXMonth(0)" [disabled]="isOnLastXMonth(0)">
+      This Month
+    </button>
+    <button matButton="tonal" (click)="thisYear()" [disabled]="isThisYear()">This Year</button>
+    <button matButton="tonal" (click)="onPreviousMonth()" [disabled]="isPreviousMonth()">
+      Previous Month
+    </button>
+    <mat-divider [vertical]="true"></mat-divider>
+    <button mat-raised-button (click)="onLastXMonth(3)" [disabled]="isOnLastXMonth(3)">
+      Last 3 months
+    </button>
+    <button mat-raised-button (click)="onLastXMonth(6)" [disabled]="isOnLastXMonth(6)">
+      Last 6 months
+    </button>
+    <button mat-raised-button (click)="onLastXMonth(12)" [disabled]="isOnLastXMonth(12)">
+      Last 12 months
+    </button>
+  </div>
+</div>

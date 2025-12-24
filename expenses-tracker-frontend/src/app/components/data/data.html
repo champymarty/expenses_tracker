@@ -1,0 +1,24 @@
+<div>
+  <section>
+    <mat-form-field>
+      <mat-label>Expense source</mat-label>
+      <mat-select [formControl]="sourceControl" required>
+        @for (source of sources; track source.id) {
+        <mat-option [value]="source">{{source.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <input type="file" multiple (change)="onFileSelected($event)" />
+
+    <button matButton="filled" (click)="uploadExpenses()" [disabled]="isDisabled()">
+      Upload expenses
+    </button>
+  </section>
+  <section>
+    <button matFab extended (click)="exportDb()">
+      <mat-icon>download_2</mat-icon>
+      Extract Db
+    </button>
+  </section>
+</div>

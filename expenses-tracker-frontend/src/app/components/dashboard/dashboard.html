@@ -1,0 +1,68 @@
+<!-- Cards with media area -->
+<app-date-picker></app-date-picker>
+
+<div class="budget-container mat-elevation-z8">
+  @for (averageBudget of averageBudgets; track averageBudget.budget.id) {
+  <mat-card class="budget-item" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{ getAverageBudgetTitle(averageBudget) }}</mat-card-title>
+        <span class="spacer"></span>
+        <button mat-icon-button color="warn" (click)="onDeleteBudget(averageBudget.budget.id)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      {{ roundToNoDecimal(averageBudget.average) }} / {{ averageBudget.budget.target_amount }}
+    </mat-card-content>
+  </mat-card>
+  }
+</div>
+
+<mat-toolbar color="primary" class="add-budget-toolbar">
+  <form class="add-budget-form" [formGroup]="addBudgetForm" (ngSubmit)="onAddBudget()">
+    <mat-form-field appearance="fill">
+      <mat-label>Expense Category</mat-label>
+      <mat-select formControlName="categoryFamilyControl" required>
+        <mat-option [value]="null">None</mat-option>
+        @for (categoryFamily of categoryFamilies; track categoryFamily.id) {
+        <mat-option [value]="categoryFamily"> {{ categoryFamily.name }} </mat-option>
+        }
+      </mat-select>
+      @if (categoryFamilyControl.hasError('required')) {
+      <mat-error>Please choose an Category</mat-error>
+      }
+      <mat-hint>{{categoryFamilyControl.value?.name}}</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Target Amount</mat-label>
+      <input
+        type="number"
+        matInput
+        formControlName="amountControl"
+        [errorStateMatcher]="matcher"
+        placeholder="Enter target amount"
+      />
+      @if (amountControl.hasError('required')) {
+      <mat-error>Amount is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Frequency</mat-label>
+      <mat-select formControlName="frequenceControl" required>
+        <mat-option [value]="null">None</mat-option>
+        @for (frequencyType of frequencyTypes; track frequencyType.value) {
+        <mat-option [value]="frequencyType"> {{ frequencyType.viewValue }} </mat-option>
+        }
+      </mat-select>
+      @if (frequenceControl.hasError('required')) {
+      <mat-error>Please choose an frequency</mat-error>
+      }
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit" class="add-budget-btn">
+      <mat-icon>add_circle</mat-icon>
+      Add Budget
+    </button>
+  </form>
+</mat-toolbar>

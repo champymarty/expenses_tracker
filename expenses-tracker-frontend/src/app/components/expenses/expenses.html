@@ -1,0 +1,16 @@
+<app-date-picker></app-date-picker>
+<button
+  mat-icon-button
+  aria-label="Example icon-button with a heart icon"
+  class="add-button"
+  (click)="openAddExpenseDialog()"
+>
+  <mat-icon>add_circle</mat-icon>
+</button>
+<ag-grid-angular
+  [rowData]="rowData"
+  [columnDefs]="colDefs"
+  [modules]="AG_GRID_MODULES"
+  [gridOptions]="gridOptions"
+  (gridReady)="onGridReady($event)"
+/>

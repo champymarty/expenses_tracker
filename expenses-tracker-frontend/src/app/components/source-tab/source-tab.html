@@ -1,0 +1,27 @@
+<app-date-picker></app-date-picker>
+@if (averages.length > 0) {
+<div class="source-averages-container">
+  <h2>Source Averages</h2>
+  <table mat-table [dataSource]="averages" class="mat-elevation-z8">
+    <ng-container matColumnDef="source">
+      <th mat-header-cell *matHeaderCellDef>Source</th>
+      <td mat-cell *matCellDef="let element">{{ element.source.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="average">
+      <th mat-header-cell *matHeaderCellDef>Average</th>
+      <td mat-cell *matCellDef="let element">{{ element.average | number:'1.2-2' }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['source', 'average']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['source', 'average'];"></tr>
+  </table>
+
+  <div class="total-average">
+    <strong>Total Average:</strong> {{ totalAverage | number:'1.2-2' }}
+  </div>
+  <div class="average-source">
+    <strong>Average per Source:</strong> {{ averageSource | number:'1.2-2' }}
+  </div>
+</div>
+}

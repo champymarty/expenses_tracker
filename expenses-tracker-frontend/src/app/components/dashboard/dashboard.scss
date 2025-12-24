@@ -1,0 +1,54 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.budget-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+}
+
+.budget-item {
+  flex: 1 1 320px;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+  height: auto;
+}
+
+.add-budget-toolbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  padding: 16px 0; /* Increased vertical padding for more height */
+  min-height: 88px; /* Ensures a taller toolbar */
+}
+
+.add-budget-form {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.add-budget-form mat-form-field {
+  min-width: 180px;
+  margin-bottom: 0;
+}
+
+.add-budget-btn {
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 12px 28px;
+  margin-left: 16px;
+  display: flex;
+  align-items: to;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}

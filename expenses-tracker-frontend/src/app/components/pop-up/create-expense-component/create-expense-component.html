@@ -1,0 +1,72 @@
+<div class="create-expense-container">
+  <h2>Create New Expense</h2>
+  <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Creation date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="startDatePicker"
+        placeholder="Month and Year"
+        formControlName="creationDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker
+        #startDatePicker
+        startView="multi-year"
+        (yearSelected)="chosenYearHandler(creationDate, $event)"
+        (monthSelected)="chosenMonthHandler(creationDate, $event, startDatePicker)"
+        panelClass="creation-date-picker"
+      >
+      </mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" placeholder="Enter description" />
+      @if (expenseForm.get('description')?.errors?.['required']) {
+      <mat-error> Description is required </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" formControlName="amount" placeholder="Enter amount" />
+      @if (expenseForm.get('amount')?.errors?.['required']) {
+      <mat-error> Amount is required </mat-error>
+      }@else if (expenseForm.get('amount')?.errors?.['min']) {
+      <mat-error> Amount must be greater than 0 </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Original Category</mat-label>
+      <input type="text" matInput formControlName="originalCategory" [matAutocomplete]="auto" />
+      <mat-autocomplete #auto="matAutocomplete">
+        @for (categoryFamilyName of filteredCategoryFamilies | async; track categoryFamilyName) {
+        <mat-option [value]="categoryFamilyName">{{categoryFamilyName}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Source</mat-label>
+      <mat-select formControlName="source" required>
+        @for (source of availableSources; track source.id) {
+        <mat-option [value]="source">{{source.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-button type="button" (click)="onCancel()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!expenseForm.valid">
+        Create
+      </button>
+    </div>
+    @if (errorMessage) {
+    <div class="error-container">
+      <mat-error>{{errorMessage}}</mat-error>
+    </div>
+    }
+  </form>
+</div>

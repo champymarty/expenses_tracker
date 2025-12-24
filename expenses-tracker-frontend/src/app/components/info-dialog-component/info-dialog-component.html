@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>
+  <p>{{ data.message }}</p>
+  @if (data.listMessageTitle && data.messages?.length) {
+  <ng-container>
+    <h3>{{ data.listMessageTitle }}</h3>
+    <ul>
+      @for (msg of data.messages; track $index) {
+      <li>{{ msg }}</li>
+      }
+    </ul>
+  </ng-container>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

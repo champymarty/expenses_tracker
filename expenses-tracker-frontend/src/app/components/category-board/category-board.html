@@ -1,0 +1,46 @@
+<div class="category-board-container">
+  <button matButton="filled" (click)="onCombineCategoryFamily()">Combine 2 category</button>
+  <button matButton="filled" (click)="recalculateCategoriesForExpenses()">
+    Recalculate categories for expenses
+  </button>
+  <div class="category-grid">
+    @for (categoryFamily of categoryFamilies(); track categoryFamily.id) {
+    <mat-card class="category-card">
+      <mat-card-title>{{ categoryFamily.name }}</mat-card-title>
+      <mat-form-field appearance="fill" class="regex-input">
+        <mat-label>Regex Pattern</mat-label>
+        <input
+          matInput
+          [value]="categoryFamily.regex_pattern"
+          (change)="onRegexPatternChange($event, categoryFamily)"
+          placeholder="Enter regex pattern"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="category-input">
+        <mat-label>Categories</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter categoies">
+          @for (categories of categoryFamily.categories; track categories.id) {
+          <mat-chip-row
+            (removed)="remove(categories, categoryFamily)"
+            [editable]="true"
+            [aria-description]="'press enter to edit ' + categories.name"
+          >
+            {{categories.name}}
+            <button matChipRemove [attr.aria-label]="'remove ' + categories.name">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          }
+          <input
+            placeholder="New category..."
+            [matChipInputFor]="chipGrid"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event, categoryFamily)"
+          />
+        </mat-chip-grid>
+      </mat-form-field>
+    </mat-card>
+    }
+  </div>
+</div>
