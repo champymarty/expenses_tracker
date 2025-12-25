@@ -9,6 +9,7 @@ import {
   ICellRendererParams,
   ModuleRegistry,
   NumberFilterModule,
+  ClientSideRowModelModule,
   type ColDef,
 } from 'ag-grid-community';
 import { ExpensesService } from '../../services/expenses-service';
@@ -27,7 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateExpenseComponent } from '../pop-up/create-expense-component/create-expense-component';
 import { DatePickerData, DateRangeService } from '../../services/date-range.service';
-ModuleRegistry.registerModules([NumberFilterModule, DateFilterModule]);
+import { SourceService } from '../../services/source-service';
+ModuleRegistry.registerModules([NumberFilterModule, DateFilterModule, ClientSideRowModelModule]);
 
 @Component({
   selector: 'app-expenses',
@@ -58,6 +60,8 @@ export class Expenses {
   categories: CategoryFamily[] = [];
   categoryNames: string[] = [];
 
+  sourcesNames: string[] = [];
+
   colDefs: ColDef[] = [
     { field: 'description', headerName: 'Description', sortable: true, filter: true },
     {
@@ -87,6 +91,7 @@ export class Expenses {
     {
       field: 'source.name',
       headerName: 'Source',
+      filter: true,
     },
     {
       field: 'lock_category',
@@ -145,6 +150,7 @@ export class Expenses {
     private categoryFamilyService: CategoryFamilyService,
     private dialog: MatDialog,
     private dataRangeService: DateRangeService,
+    private sourceService: SourceService,
   ) {}
 
   onGridReady(params: GridReadyEvent) {
@@ -164,6 +170,9 @@ export class Expenses {
     this.categoryFamilyService.getAllCategoryFamilies().subscribe(data => {
       this.categories = data;
       this.categoryNames = data.map(cat => cat.name);
+    });
+    this.sourceService.getAllSources().subscribe(data => {
+      this.sourcesNames = data.map(source => source.name);
     });
   }
 

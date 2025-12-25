@@ -19,6 +19,8 @@ class HtmlRogerExtractor(FileExtractor):
     SEPERATOR = ";"
     SOURCE_TYPE = "ROGER"
 
+    IMG_HEADER_ALT_TEXT = ["Rogers bank logo", "Logo de la Banque Rogers"]
+
     def __init__(self, file: UploadFile, source: Source):
         super().__init__(file, source)
         self.LOGGER = logging.getLogger(f'{__name__}.{self.__class__.__name__}')
@@ -40,7 +42,7 @@ class HtmlRogerExtractor(FileExtractor):
             html_str = html_bytes.decode("utf-8")
             soup = BeautifulSoup(html_str, 'html.parser')
             # Simple validation: check for a specific element or text unique to Roger HTML files
-            if soup.find("img", attrs={"alt": "Rogers bank logo"}) is None:
+            if all(soup.find("img", attrs={"alt": alt_text}) is None for alt_text in self.IMG_HEADER_ALT_TEXT):
                 self.LOGGER.info("HTML structure does not match expected Roger format.")
                 return False
             self.LOGGER.info("HTML Roger file format validated successfully.")
@@ -113,7 +115,7 @@ class HtmlRogerExtractor(FileExtractor):
                 date  = datetime.strptime(date.strip(), "%b %d, %Y")
                 description = description.strip()
                 category = category.strip()
-                amount = float(amount.replace("$", "").replace(",", ".").replace(" ", "").strip())
+                amount = float(amount.replace("$", "").replace(",", "").replace(" ", "").strip())
                 created_expense = expenseFacade.create_expense(
                     description=description,
                     amount=amount,

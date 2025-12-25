@@ -7,12 +7,12 @@ This app is meant to bu use by 1 user at a time in a local network
 
 ## Supported extractors
 
-| Type         |            excel             |                 HTML |
-| ------------ | :--------------------------: | -------------------: |
-| BNC          |     Yes with card number     |                   No |
-| ROGER        | Yes but categories are wrong | Yes with card number |
-| TRIANGLE     |     Yes, no card number      |                   No |
-| WEALTHSIMPLE |              No              |                   No |
+| Type         |            excel             |                 HTML | Language |
+| ------------ | :--------------------------: | -------------------: | -------- |
+| BNC          |     Yes with card number     |                   No | Eng      |
+| ROGER        | Yes but categories are wrong | Yes with card number | Eng      |
+| TRIANGLE     |     Yes, no card number      |                   No | Eng      |
+| WEALTHSIMPLE |              No              |                   No | Eng      |
 
 With card number means that the extractor can determine which card is used as the card number appears in.
 
