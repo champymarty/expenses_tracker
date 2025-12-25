@@ -11,6 +11,8 @@ from datetime import datetime
 
 from extractors.excel.ExcelFileExtractor import ExcelFileExtractor
 
+LOGGER = logging.getLogger(f'{__file__}')
+
 
 class BncFileExtractor(ExcelFileExtractor):
     """
@@ -73,6 +75,10 @@ class BncFileExtractor(ExcelFileExtractor):
             for _, row in df.iterrows():
                 # Assuming the BNC file has the following columns:
                 # Date, Card Number, Description, Category, Debit, Credit
+                LOGGER.debug(f"Processing row: {row}")
+                if pd.isna(row["Description"]) or pd.isna(row["Date"]) or pd.isna(row["card Number"]):
+                    self.LOGGER.warning(f"Skipping row with missing Description or Date: {row}")
+                    continue
                 amount = row["Debit"]
                 card_number: str = row["card Number"].strip().replace("*", "")
                 row_source = None

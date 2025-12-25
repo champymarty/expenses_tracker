@@ -11,8 +11,9 @@ This app is meant to bu use by 1 user at a time in a local network
 | ------------ | :--------------------------: | -------------------: | -------- |
 | BNC          |     Yes with card number     |                   No | Eng      |
 | ROGER        | Yes but categories are wrong | Yes with card number | Eng      |
+| Tangerine    |     Yes, no card number      |                   No | FR       |
 | TRIANGLE     |     Yes, no card number      |                   No | Eng      |
-| WEALTHSIMPLE |              No              |                   No | Eng      |
+| WEALTHSIMPLE |              No              |                   No |          |
 
 With card number means that the extractor can determine which card is used as the card number appears in.
 
