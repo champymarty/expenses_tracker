@@ -12,7 +12,7 @@ services:
       - LOG_LEVEL=INFO
       - UI_URLS=${UI_URLS}
     volumes:
-      - expenses-tracker-backend:/app
+      - expenses-tracker-backend:/app/data
     networks:
       - expenses-network
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000

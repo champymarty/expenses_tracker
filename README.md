@@ -35,6 +35,7 @@ With card number means that the extractor can determine which card is used as th
 
 3. Start the project: `docker compose -f docker-compose.prod.yml up`
    if you get and error with buildkit use `DOCKER_BUILDKIT=1 docker compose -f docker-compose.prod.yml up`
+4. To rebuild the project when there is changes run `docker compose -f docker-compose.prod.yml up --build --force-recreate`
 
 ## Restore db on startup
 

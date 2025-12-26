@@ -14,15 +14,15 @@ def regexp(expr, item):
     return reg.search(item) is not None
 
 
-engine = create_engine(f"sqlite:///{DB_PATH}")
-SESSION_MAKER: sessionmaker = sessionmaker(bind=engine)
+ENGINE = create_engine(f"sqlite:///{DB_PATH}", echo=False)
+SESSION_MAKER: sessionmaker = sessionmaker(bind=ENGINE)
 
-@event.listens_for(engine, "connect")
+@event.listens_for(ENGINE, "connect")
 def setup_regexp(dbapi_connection, connection_record):
     dbapi_connection.create_function("REGEXP", 2, regexp)
 
 def export_database() -> str:
-    with engine.connect() as connection:
+    with ENGINE.connect() as connection:
         dbapi_conn = connection.connection
         # Use another context manager to open the output file in write mode
         with open(DB_SQL_EXPORT_PATH, 'w') as f:
@@ -35,7 +35,7 @@ logger.info("Database engine and session maker initialized.")
 
 if os.path.exists(SQL_INIT_SCRIPT_PATH):
     logger.info(f"Database init file found at {SQL_INIT_SCRIPT_PATH}.")
-    with engine.connect() as connection:
+    with ENGINE.connect() as connection:
         with open(SQL_INIT_SCRIPT_PATH, 'r') as f:
             init_sql = f.read()
             dbapi_conn = connection.connection

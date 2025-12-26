@@ -2,13 +2,13 @@ import logging
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
+from DatabaseSetup import ENGINE
 from config import SQL_INIT_DATA_PATH
 from database.Models import *
 
 
-engine = create_engine('sqlite:///expenses_tracker.db', echo=False)
-Base.metadata.create_all(engine)
-SessionLocal: sessionmaker = sessionmaker(bind=engine)
+Base.metadata.create_all(ENGINE)
+SessionLocal: sessionmaker = sessionmaker(bind=ENGINE)
 
 logger = logging.getLogger(__name__)
 
