@@ -189,13 +189,8 @@ async def export_database_endpoint():
     Export the entire expenses database as a SQLite file.
     Returns the database file as a downloadable attachment.
     """
-    db_path = Path("expenses_tracker.db")
-    
-    if not db_path.exists():
-        raise HTTPException(status_code=404, detail="Database file not found")
-    
     try:
-        LOGGER.info(f"Exporting database from {db_path}")
+        LOGGER.info(f"Exporting database...")
         file_path = export_database()
 
         return FileResponse(
