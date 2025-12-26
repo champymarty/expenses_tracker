@@ -26,7 +26,7 @@ class TangerineFileExtractor(FileExtractor):
         "Montant": pd.StringDtype()  # parse manually to handle signs/formatting
     }
 
-    SOURCE_TYPE = "TRIANGLE"
+    SOURCE_TYPE = "TANGERINE"
 
     def __init__(self, file: UploadFile, source: Source):
         super().__init__(file, source)
